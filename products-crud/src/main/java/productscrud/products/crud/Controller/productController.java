@@ -33,8 +33,19 @@ public List<Product>getProducts(){
     }
     // updating the products
     @PatchMapping("/product/{Id}")
-    public ResponseEntity<Product>updateProduct(@RequestParam(name = "productId")long productId){
-        Product updatedProduct= productService.updateProduct(productId,product)
+    public ResponseEntity<Product>updateProduct(@RequestParam(name = "productId")long productId, @RequestBody Product product){
+        Product updatedProduct= productService.updateProduct(productId,product);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/product/{Id}")
+    public ResponseEntity<Product> deleteProduct(@RequestParam(name = "deletedProduct")long productId){
+        Product deletedProduct = productService.deleteProduct(productId);
+        return new ResponseEntity<>(deletedProduct, HttpStatus.OK);
+    }
+    @GetMapping("/products-by-name")
+    public List<Product> getProductByName(@RequestParam(name = "productName") String productName){
+        return productService.getProductByName(productName);
     }
 
 

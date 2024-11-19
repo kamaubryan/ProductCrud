@@ -14,13 +14,15 @@ public class Product {
     private long id;
 
     // we have several column and we have to specify each
-    @Column (name = "Product_Name", nullable = false)
-    private String ProductName;// this is a column for the name of the product
+    @Column (name = "Product_name", nullable = false)
+    private String productName;// this is a column for the name of the product
 
     @Column(name = "color")
     private String Color;
 
     @Column(name="price")
     private int Price;
+    @Column(name = "Name")
+    private String name;
 
 }

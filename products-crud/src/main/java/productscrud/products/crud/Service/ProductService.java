@@ -39,7 +39,7 @@ public class ProductService {
         return existingProduct;
     }
     public List<Product> getProductByName(String productname){
-        return productRepository.getProductByName(productname);
+        return productRepository.getProductByProductName(productname);
     }
 
 

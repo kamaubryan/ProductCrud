@@ -8,5 +8,6 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product,Long> {///  when we extend the jpa repo it implements the built methods
     // we have to create a list of getting a method by name
 List<Product> getProductByProductName(String productName);
-    List<Product> getProductByName(String productName); // assuming the field is named 'name'
+    List<Product> getProductByName(String productName);
+
 }

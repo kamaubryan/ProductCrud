@@ -17,7 +17,7 @@ public class ProductService {
         return productRepository.save(product);// we have to use the new instantiated product
     }
 
-    public Product getProduct(long productId){
+    public Product getSingleProduct(long productId){
         return productRepository.findById(productId).orElseThrow(()->new RuntimeException("Not found"));// here we have used a trycatch error where if its not found it give an error called not found
     }
     public List<Product> getProducts(){
@@ -40,6 +40,10 @@ public class ProductService {
     }
     public List<Product> getProductByName(String productname){
         return productRepository.getProductByProductName(productname);
+    }
+
+    public Product getProductById (long productId){
+        return  productRepository.findById(productId).orElseThrow(()->new RuntimeException("not Found"));
     }
 
 

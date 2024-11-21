@@ -11,6 +11,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/")
 public class productController {
     @Autowired
     ProductService productService;// instantiation
@@ -21,10 +22,16 @@ public class productController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
     //getting by its ID
-    @GetMapping("/product/{Id}")
-    public ResponseEntity<Product>getProduct(@RequestParam(name = "productId")long productId){
-        Product product = productService.getProduct(productId);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<?>getProduct(@PathVariable("productId") long productId){
+
+        try {
+            Product product = productService.getSingleProduct(productId);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } catch (Exception e) {
+
+            return new ResponseEntity<>("Product doest not exist",HttpStatus.NOT_FOUND);
+        }
     }
     // getting all products
     @GetMapping("/products")
@@ -32,9 +39,9 @@ public List<Product>getProducts(){
         return productService.getProducts();
     }
     // updating the products
-    @PatchMapping("/product/{Id}")
-    public ResponseEntity<Product>updateProduct(@RequestParam(name = "productId")long productId, @RequestBody Product product){
-        Product updatedProduct= productService.updateProduct(productId,product);
+    @PatchMapping("/product/{ProductId}")
+    public ResponseEntity<Product>updateProduct(@PathVariable("productId") long productId, @RequestBody Product product){
+        Product updatedProduct= productService.updateProduct(productId, product);
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 

@@ -14,12 +14,12 @@ import java.util.List;
 @RequestMapping("/")
 public class productController {
     @Autowired
-    ProductService productService;// instantiation
+   private ProductService productService;// instantiation
 // inserting a product in the database
     @PostMapping("/product")
     public ResponseEntity<Product> saveProduct(@RequestBody Product product){
         Product savedProduct =productService.saveProduct( product);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
     //getting by its ID
     @GetMapping("/product/{productId}")
@@ -27,7 +27,7 @@ public class productController {
 
         try {
             Product product = productService.getSingleProduct(productId);
-            return new ResponseEntity<>(product, HttpStatus.OK);
+            return new ResponseEntity<>(product, HttpStatus.NOT_FOUND);
         } catch (Exception e) {
 
             return new ResponseEntity<>("Product doest not exist",HttpStatus.NOT_FOUND);
@@ -35,23 +35,34 @@ public class productController {
     }
     // getting all products
     @GetMapping("/products")
-public List<Product>getProducts(){
-        return productService.getProducts();
+public ResponseEntity<List<Product>> getProducts(){
+   List<Product> products = productService.getProducts();
+   return new ResponseEntity<>(products, HttpStatus.OK);
     }
     // updating the products
     @PatchMapping("/product/{ProductId}")
-    public ResponseEntity<Product>updateProduct(@PathVariable("productId") long productId, @RequestBody Product product){
-        Product updatedProduct= productService.updateProduct(productId, product);
-        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    public ResponseEntity<?>updateProduct(@PathVariable("productId") long productId, @RequestBody Product product){
+     try {
+         Product updatedProduct= productService.updateProduct(productId, product);
+         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+     }
+     catch (Exception e){
+         return new ResponseEntity<>("Product doesnt exist", HttpStatus.NOT_FOUND);
+     }
     }
 
     @DeleteMapping("/product/{Id}")
-    public ResponseEntity<Product> deleteProduct(@RequestParam(name = "deletedProduct")long productId){
-        Product deletedProduct = productService.deleteProduct(productId);
-        return new ResponseEntity<>(deletedProduct, HttpStatus.OK);
+    public ResponseEntity<?> deleteProduct(@RequestParam(name = "deletedProduct")long productId){
+      try {
+          Product deletedProduct = productService.deleteProduct(productId);
+          return new ResponseEntity<>(deletedProduct, HttpStatus.OK);
+      }
+      catch (Exception e){
+          return new ResponseEntity<>("Product does not exist",HttpStatus.NOT_FOUND);
+      }
     }
-    @GetMapping("/products-by-name")
-    public List<Product> getProductByName(@RequestParam(name = "productName") String productName){
+    @GetMapping("/product/productsbyname")
+    public List<Product> getProductByName(@PathVariable(name = "productName") String productName){
         return productService.getProductByName(productName);
     }
 

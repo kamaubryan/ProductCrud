@@ -5,9 +5,8 @@ import productscrud.products.crud.Entity.Product;// we have imported the class s
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product,Long> {///  when we extend the jpa repo it implements the built methods
-    // we have to create a list of getting a method by name
-List<Product> getProductByProductName(String productName);
-    List<Product> getProductByName(String productName);
+public interface ProductRepository extends JpaRepository<Product,Long> {
+    List<Product> findProductByProductName(String productName);
+    List<Product> findProductByName(String Name);
 
 }

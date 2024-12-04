@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import productscrud.products.crud.Entity.Product;
 import productscrud.products.crud.Repository.ProductRepository;
+import productscrud.products.crud.dto.ProductDto;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product updateProduct(long productId, Product product){// this method accepts two parameters
+    public Product updateProduct(long productId, ProductDto product){// this method accepts two parameters
         Product existingProduct = productRepository.findById(productId).orElseThrow(()->new RuntimeException("Not Found"));
         existingProduct.setProductName(product.getProductName());
         existingProduct.setColor(product.getColor());

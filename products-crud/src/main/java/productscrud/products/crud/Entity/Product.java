@@ -18,10 +18,10 @@ public class Product {
     private String productName;// this is a column for the name of the product
 
     @Column(name = "color")
-    private String Color;
+    private String color;
 
     @Column(name="price")
-    private int Price;
+    private int price;
     @Column(name = "Name")
     private String name;
 

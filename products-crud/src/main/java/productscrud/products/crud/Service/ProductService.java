@@ -7,6 +7,7 @@ import productscrud.products.crud.Repository.ProductRepository;
 import productscrud.products.crud.dto.ProductDto;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -39,8 +40,8 @@ public class ProductService {
         productRepository.deleteById(productId);
         return existingProduct;
     }
-    public List<Product> getProductByName(String productname){
-        return productRepository.getProductByProductName(productname);
+    public Optional<Product> getProductByName(String productname){
+        return productRepository.findProductByProductName(productname);
     }
 
     public Product getProductById (long productId){

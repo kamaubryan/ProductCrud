@@ -9,6 +9,7 @@ import productscrud.products.crud.Service.ProductService;
 import productscrud.products.crud.dto.ProductDto;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -69,8 +70,9 @@ public class productController {
     }
 
     @GetMapping("/product/productsbyname")
-    public List<Product> getProductByName(@PathVariable(name = "productName") String productName) {
-        return productService.getProductByName(productName);
+    public Optional<Product> getProductByName(@RequestParam(name = "productName") String productName) {
+
+        return productService.getProductByName(productName.trim());
     }
 
 

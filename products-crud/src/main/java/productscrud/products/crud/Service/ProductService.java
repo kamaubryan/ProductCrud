@@ -35,10 +35,10 @@ public class ProductService {
         return existingProduct;
     }
 
-    public Product deleteProduct(long productId){
+    public void deleteProduct(long productId){
         Product existingProduct = productRepository.findById(productId).orElseThrow(()->new RuntimeException("Not Found"));
         productRepository.deleteById(productId);
-        return existingProduct;
+
     }
     public Optional<Product> getProductByName(String productname){
         return productRepository.findProductByProductName(productname);
